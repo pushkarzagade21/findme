@@ -47,6 +47,9 @@ public class User implements Serializable {
 	@Column(name = "USERNAME")
 	private String userName;
 
+	@Column(name = "PASSWORD")
+	private String password;
+
 	@Column(name = "EMAIL")
 	private String email;
 
@@ -126,6 +129,14 @@ public class User implements Serializable {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getEmail() {
