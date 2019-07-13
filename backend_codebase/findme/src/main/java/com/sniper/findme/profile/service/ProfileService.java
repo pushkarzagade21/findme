@@ -8,7 +8,7 @@ import com.sniper.findme.user.model.User;
  * The Interface ProfileService.
  */
 public interface ProfileService {
-	
+
 	/**
 	 * Update user profile.
 	 *

@@ -41,7 +41,7 @@ public class User implements Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_Sequence")
-	@SequenceGenerator(name = "user_Sequence", sequenceName = "USER_ACCOUNT_SEQ")
+	@SequenceGenerator(name = "user_Sequence", sequenceName = "USER_ACCOUNT_SEQ", allocationSize = 1, initialValue = 1)
 	private long id;
 
 	/** The first name. */
@@ -147,13 +147,6 @@ public class User implements Serializable {
 			@JoinColumn(name = "USER_ACCOUNT_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
 					@JoinColumn(name = "RELATION_ID", referencedColumnName = "ID") })
 	private List<Relation> interestedRelationList = new ArrayList<>();
-
-	/** The interested relation list. */
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-	@JoinTable(name = "TBL_USER_FRIENDS", joinColumns = {
-			@JoinColumn(name = "USER_ACCOUNT_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
-					@JoinColumn(name = "FRIEND_ACCOUNT_ID", referencedColumnName = "ID") })
-	private List<User> friendsList = new ArrayList<>();
 
 	/**
 	 * Gets the id.
@@ -578,24 +571,6 @@ public class User implements Serializable {
 		this.interestedRelationList = interestedRelationList;
 	}
 
-	/**
-	 * Gets the friends list.
-	 *
-	 * @return the friends list
-	 */
-	public List<User> getFriendsList() {
-		return friendsList;
-	}
-
-	/**
-	 * Sets the friends list.
-	 *
-	 * @param friendsList the new friends list
-	 */
-	public void setFriendsList(List<User> friendsList) {
-		this.friendsList = friendsList;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -645,10 +620,12 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName
-				+ ", email=" + email + ", details=" + details + ", nickName=" + nickName + ", confirmationCode="
-				+ confirmationCode + ", completeness=" + completeness + ", isFacebookLogin=" + isFacebookLogin
-				+ ", isGoogleLogin=" + isGoogleLogin + ", onlineStatus=" + onlineStatus + ", status=" + status
-				+ ", gender=" + gender + ", religion=" + religion + ", interestedGenderList=" + interestedGenderList
+				+ ", password=" + password + ", email=" + email + ", details=" + details + ", nickName=" + nickName
+				+ ", confirmationCode=" + confirmationCode + ", completeness=" + completeness + ", isFacebookLogin="
+				+ isFacebookLogin + ", isGoogleLogin=" + isGoogleLogin + ", onlineStatus=" + onlineStatus + ", status="
+				+ status + ", creationDate=" + creationDate + ", modificationDate=" + modificationDate + ", jwtToken="
+				+ jwtToken + ", jwtTokenExpiryDate=" + jwtTokenExpiryDate + ", address=" + address + ", gender="
+				+ gender + ", religion=" + religion + ", interestedGenderList=" + interestedGenderList
 				+ ", interestedReligionList=" + interestedReligionList + ", interestedRelationList="
 				+ interestedRelationList + "]";
 	}

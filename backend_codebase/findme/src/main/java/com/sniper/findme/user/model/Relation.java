@@ -31,7 +31,7 @@ public class Relation implements Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "relation_Sequence")
-	@SequenceGenerator(name = "relation_Sequence", sequenceName = "RELATION_SEQ")
+	@SequenceGenerator(name = "relation_Sequence", sequenceName = "RELATION_SEQ", allocationSize = 1, initialValue = 1)
 	private long id;
 
 	/** The name. */

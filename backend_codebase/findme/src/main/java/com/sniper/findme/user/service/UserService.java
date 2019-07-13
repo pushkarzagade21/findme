@@ -19,7 +19,7 @@ public interface UserService {
 	/**
 	 * Update user object.
 	 *
-	 * @param user the user
+	 * @param user         the user
 	 * @param userToUpdate the user to update
 	 * @return the user
 	 */

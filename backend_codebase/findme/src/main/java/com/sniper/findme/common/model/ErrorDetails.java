@@ -5,17 +5,17 @@ package com.sniper.findme.common.model;
  * The Class ErrorDetails.
  */
 public class ErrorDetails {
-	
+
 	/** The error code. */
 	private String errorCode;
-	
+
 	/** The error message. */
 	private String errorMessage;
 
 	/**
 	 * Instantiates a new error details.
 	 *
-	 * @param errorCode the error code
+	 * @param errorCode    the error code
 	 * @param errorMessage the error message
 	 */
 	public ErrorDetails(String errorCode, String errorMessage) {

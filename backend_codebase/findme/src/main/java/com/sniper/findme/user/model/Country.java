@@ -26,7 +26,7 @@ public class Country {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "state_Sequence")
-	@SequenceGenerator(name = "state_Sequence", sequenceName = "STATE_SEQ")
+	@SequenceGenerator(name = "state_Sequence", sequenceName = "STATE_SEQ", allocationSize = 1, initialValue = 1)
 	private long id;
 
 	/** The name. */

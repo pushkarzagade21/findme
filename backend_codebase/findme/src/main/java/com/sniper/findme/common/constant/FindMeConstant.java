@@ -8,7 +8,7 @@ public class FindMeConstant {
 
 	/** The Constant YES. */
 	public static final String YES = "Yes";
-	
+
 	/** The Constant NO. */
 	public static final String NO = "No";
 }

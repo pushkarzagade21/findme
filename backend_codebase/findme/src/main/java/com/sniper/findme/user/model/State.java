@@ -23,12 +23,12 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class State {
-	
+
 	/** The id. */
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "state_Sequence")
-	@SequenceGenerator(name = "state_Sequence", sequenceName = "STATE_SEQ")
+	@SequenceGenerator(name = "state_Sequence", sequenceName = "STATE_SEQ", allocationSize = 1, initialValue = 1)
 	private long id;
 
 	/** The name. */

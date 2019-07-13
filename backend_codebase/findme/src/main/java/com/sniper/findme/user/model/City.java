@@ -28,7 +28,7 @@ public class City {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "city_Sequence")
-	@SequenceGenerator(name = "city_Sequence", sequenceName = "CITY_SEQ")
+	@SequenceGenerator(name = "city_Sequence", sequenceName = "CITY_SEQ", allocationSize = 1, initialValue = 1)
 	private long id;
 
 	/** The name. */
