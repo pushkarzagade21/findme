@@ -33,7 +33,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable {
-	
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
@@ -144,9 +144,16 @@ public class User implements Serializable {
 	/** The interested relation list. */
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
 	@JoinTable(name = "TBL_USER_INTERESTED_RELATION", joinColumns = {
-			@JoinColumn(name = "USER_ACCOUNT_ACCOUNT_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "USER_ACCOUNT_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
 					@JoinColumn(name = "RELATION_ID", referencedColumnName = "ID") })
 	private List<Relation> interestedRelationList = new ArrayList<>();
+
+	/** The interested relation list. */
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+	@JoinTable(name = "TBL_USER_FRIENDS", joinColumns = {
+			@JoinColumn(name = "USER_ACCOUNT_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
+					@JoinColumn(name = "FRIEND_ACCOUNT_ID", referencedColumnName = "ID") })
+	private List<User> friendsList = new ArrayList<>();
 
 	/**
 	 * Gets the id.
@@ -155,15 +162,6 @@ public class User implements Serializable {
 	 */
 	public long getId() {
 		return id;
-	}
-
-	/**
-	 * Sets the id.
-	 *
-	 * @param id the new id
-	 */
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	/**
@@ -580,7 +578,27 @@ public class User implements Serializable {
 		this.interestedRelationList = interestedRelationList;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * Gets the friends list.
+	 *
+	 * @return the friends list
+	 */
+	public List<User> getFriendsList() {
+		return friendsList;
+	}
+
+	/**
+	 * Sets the friends list.
+	 *
+	 * @param friendsList the new friends list
+	 */
+	public void setFriendsList(List<User> friendsList) {
+		this.friendsList = friendsList;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -592,7 +610,9 @@ public class User implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -617,7 +637,9 @@ public class User implements Serializable {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
