@@ -1,16 +1,13 @@
 package com.sniper.findme.user.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sniper.findme.common.constant.ErrorConstant;
@@ -18,34 +15,32 @@ import com.sniper.findme.common.model.ErrorDetails;
 import com.sniper.findme.common.model.ResultObject;
 import com.sniper.findme.common.utility.CommonUtils;
 import com.sniper.findme.user.model.User;
-import com.sniper.findme.user.service.RegistrationService;
+import com.sniper.findme.user.service.LoginService;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class RegistrationController.
+ * The Class LoginController.
  */
 @RestController
-@RequestMapping("/user-registration")
-public class RegistrationController {
+@RequestMapping("/user-login")
+public class LoginController {
 
-	/** The registration service. */
+	/** The login service. */
 	@Autowired
-	private RegistrationService registrationService;
+	private LoginService loginService;
 
 	/**
-	 * Save user.
+	 * Login user.
 	 *
 	 * @param user the user
 	 * @return the result object
 	 */
 	@CrossOrigin
-	@PostMapping(path = "/save-user", produces = "application/json")
-	public ResultObject saveUser(@RequestBody User user) {
+	@PostMapping(path = "/login", produces = "application/json")
+	public ResultObject loginUser(@RequestBody User user) {
 		ResultObject resultObject = new ResultObject();
 		if (!CommonUtils.isEmptyOrNull(user)) {
-			user.setCreationDate(new Date());
-			user.setModificationDate(new Date());
-			resultObject = registrationService.registerUserService(user);
+			resultObject = loginService.loginUserService(user);
 		} else {
 			List<ErrorDetails> errorDetailsList = new ArrayList<>();
 			errorDetailsList.add(new ErrorDetails("FIND_ME_ERROR_CODE_001", ErrorConstant.FIND_ME_ERROR_CODE_001));
@@ -55,35 +50,42 @@ public class RegistrationController {
 	}
 
 	/**
-	 * Check email exist.
+	 * Login user with facebook.
 	 *
-	 * @param email the email
+	 * @param user the user
 	 * @return the result object
 	 */
 	@CrossOrigin
-	@GetMapping(path = "/check-email-exists", produces = "application/json")
-	public ResultObject checkEmailExist(@RequestParam("email") String email) {
+	@PostMapping(path = "/login-with-facebook", produces = "application/json")
+	public ResultObject loginUserWithFacebook(@RequestBody User user) {
 		ResultObject resultObject = new ResultObject();
-		if (!CommonUtils.isEmptyOrNull(email)) {
-			resultObject = registrationService.checkEmailExistService(email);
+		if (!CommonUtils.isEmptyOrNull(user)) {
+			resultObject = loginService.loginUserWithFacebookService(user);
+		} else {
+			List<ErrorDetails> errorDetailsList = new ArrayList<>();
+			errorDetailsList.add(new ErrorDetails("FIND_ME_ERROR_CODE_001", ErrorConstant.FIND_ME_ERROR_CODE_001));
+			resultObject.setErrorList(errorDetailsList);
 		}
 		return resultObject;
 	}
 
 	/**
-	 * Check username exist.
+	 * Login user with google.
 	 *
-	 * @param username the username
+	 * @param user the user
 	 * @return the result object
 	 */
 	@CrossOrigin
-	@GetMapping(path = "/check-username-exists", produces = "application/json")
-	public ResultObject checkUsernameExist(@RequestParam("username") String username) {
+	@PostMapping(path = "/login-with-google", produces = "application/json")
+	public ResultObject loginUserWithGoogle(@RequestBody User user) {
 		ResultObject resultObject = new ResultObject();
-		if (!CommonUtils.isEmptyOrNull(username)) {
-			resultObject = registrationService.checkUsernameExistService(username);
+		if (!CommonUtils.isEmptyOrNull(user)) {
+			resultObject = loginService.loginUserWithGoogleService(user);
+		} else {
+			List<ErrorDetails> errorDetailsList = new ArrayList<>();
+			errorDetailsList.add(new ErrorDetails("FIND_ME_ERROR_CODE_001", ErrorConstant.FIND_ME_ERROR_CODE_001));
+			resultObject.setErrorList(errorDetailsList);
 		}
 		return resultObject;
 	}
-
 }
